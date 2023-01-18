@@ -1,3 +1,4 @@
+import exp from 'constants';
 import Knex from 'knex'
 import appConfig from "./config";
 const knexStringCase = require('knex-stringcase')
@@ -7,3 +8,5 @@ const db = Knex(knexStringCase({
     connection: appConfig.dbconnectinfo,
     useNullAsDefalult: true
 }))
+
+export default db
