@@ -46,7 +46,7 @@ export async function authMiddleware(ctx: Koa.Context, next: () => Promise<any>)
         const token = bearer.substring(BEARER_PREFIX.length)
         const decoded = await verifyJwt(token)
         const authData: AuthData = {
-            username: decoded.prefered_username as string,
+            username: decoded.preferred_username as string,
             isStaff: (decoded.groups as string[])?.indexOf('staff') >= 0
         }
         ctx.state.authData = authData

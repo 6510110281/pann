@@ -1,6 +1,7 @@
 import Router from "koa-router";
 import db from "../db";
 import { nestObject } from "./utils";
+import { AuthData } from 'auth';
 
 const router = new Router()
 
@@ -19,7 +20,8 @@ const updateUserResult = (id: number, userCode: string, data: any) => {
   
 router
     .get('/', async (ctx,next) => {
-        let query = makeQuery()
+        const authData = ctx.state.authData as AuthData
+        let query = makeQuery().where({ 'userResult.userCode': authData.username })
         if (ctx.request.query['announcementId']) {
             const announcementId = Number(ctx.request.query['announcementId'])
             query = query.where({announcementId})
@@ -37,8 +39,9 @@ router
     })
     .get('/:id/markAsViewed', async (ctx, next) => {
         const id = parseInt(ctx.params.id)
+        const authData = ctx.state.authData as AuthData
         const viewDateTime = new Date()
-        const rowUpdated = await updateUserResult(id, '6210110227', { viewDateTime })
+        const rowUpdated = await updateUserResult(id, authData.username, { viewDateTime })
         if(rowUpdated == 0){
           ctx.response.status = 404
           return
@@ -47,8 +50,9 @@ router
       })
       .get('/:id/acknowledge', async (ctx, next) => {
         const id = parseInt(ctx.params.id)
+        const authData = ctx.state.authData as AuthData
         const ackDateTime = new Date()
-        const rowUpdated = await updateUserResult(id, '6210110227', { ackDateTime })
+        const rowUpdated = await updateUserResult(id, authData.username, { ackDateTime })
         if(rowUpdated == 0){
           ctx.response.status = 404
           return
@@ -57,8 +61,9 @@ router
       })
       .get('/:id/pin/:value', async (ctx, next) => {
         const id = parseInt(ctx.params.id)
+        const authData = ctx.state.authData as AuthData
         const isPinned = ctx.params.value == '1'
-        const rowUpdated = await updateUserResult(id, '6210110227', { isPinned })
+        const rowUpdated = await updateUserResult(id, authData.username, { isPinned })
         if(rowUpdated == 0){
           ctx.response.status = 404
           return
