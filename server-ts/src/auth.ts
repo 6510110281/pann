@@ -16,19 +16,7 @@ export async function initSsoCert() {
 }
 
 export async function verifyJwt(token: string){
-    if(appConfig.isDev && token.startsWith('DEV::')){
-        const items = token.split('::')
-        const data =  {
-          preferred_username: items[1],
-          groups: ['student']
-        }
-        if(items.length >= 3 && items[2] == '1'){
-          data.groups.push('staff')
-        }
-        return data
-      }
-
-    return new Promise<any>((resolve, reject) => {
+        return new Promise<any>((resolve, reject) => {
         jwt.verify(token, public_key as jwt.Secret, { issuer: appConfig.ssoIssuer, algorithms: ['RS256'] },(err,decoded) => {
             if(err){
                 reject(err)
