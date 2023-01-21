@@ -1,28 +1,52 @@
 import { IRepository } from "./IRepository";
 import UserResult from "../models/UserResult";
+import config, { ax } from "../config";
+
+export interface UserResultFilter {
+    keyword?: string
+    isPinned? : boolean
+}
 
 export class UserResultRepository implements IRepository<UserResult> {
-    async getAll(): Promise<UserResult[] | null> {
-        return [
-            {
-                id: 3,
-                announcement: {
-                    id: 2,
-                    topic: "ทุนเรียนดีประจำปี 2566",
-                    description: "test",
-                    remarkIfPositive: "ขอแสดงความยินดีกับผุ้ได้รับทุนเรียนดีทุกคนด้วย",
-                    pubDateTime:new Date("2022-09-09 08:00:00")
-                },
-                result: "ได้รับทุน",
-                resultType: 1,
-                remark: "",
-                isPinned: false,
-                viewDateTime: new Date('2022-09-08 14:12:31'),
-                ackDateTime: new Date('2022-09-08 14:13:31'),
-                updateDateTime: new Date('2022-09-07 09:12:31'),
-                expireDateTime: new Date('2022-09-15 14:12:31'),
-                userCode: '6210110227'
-            }
-        ]
+    urlPrefix = config.remoteRepositoryUrlPrefix
+
+    async getAll(filter: UserResultFilter): Promise<UserResult[] | null> {
+        const params = {...filter}
+        const resp = await ax.get<UserResult[]>(`${this.urlPrefix}/userResult`,{ params })
+        return resp.data
+    }
+
+    async get(id: string|number): Promise<UserResult | null> {
+        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/${id}`)        
+        return resp.data 
+    }
+
+    async create(entity: Partial<UserResult>): Promise<UserResult | null> {
+        const resp = await ax.post<UserResult>(`${this.urlPrefix}/userResult`, entity)    
+        return resp.data
+    }
+
+    async update(entity: Partial<UserResult>): Promise<UserResult | null> {
+        const resp = await ax.put<UserResult>(`${this.urlPrefix}/userResult/${entity.id}`, entity)
+        return resp.data
+    }
+
+    async delete(id: string|number): Promise<void> {
+        await ax.delete<void>(`${this.urlPrefix}/userResult/${id}`)
+    }
+
+    async view(id: string|number): Promise<UserResult | null> {
+        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/markAsViewed/${id}`)
+        return resp.data
+    }
+
+    async acknowledge(id: string|number): Promise<UserResult | null> {
+        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/acknowledge/${id}`)
+        return resp.data
+    }
+
+    async toggleIsPinned(id: string|number): Promise<UserResult | null> {
+        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/pin/${id}`)
+        return resp.data
     }
 }
