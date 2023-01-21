@@ -37,6 +37,7 @@ router
     })
     .post('/', async (ctx,next) => {
         const id = (await db('announcement').insert({...ctx.request.body, pubDateTime: new Date()}))[0]
+        ctx.body = await findById(id).first()
     })
     .put('/:id', async (ctx,next) => {
         const id = parseInt(ctx.params.id)
