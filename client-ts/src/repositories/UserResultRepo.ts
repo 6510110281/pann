@@ -36,17 +36,17 @@ export class UserResultRepository implements IRepository<UserResult> {
     }
 
     async view(id: string|number): Promise<UserResult | null> {
-        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/markAsViewed/${id}`)
+        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/${id}/markAsViewed`)
         return resp.data
     }
 
     async acknowledge(id: string|number): Promise<UserResult | null> {
-        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/acknowledge/${id}`)
+        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/${id}/acknowledge`)
         return resp.data
     }
 
     async toggleIsPinned(id: string|number): Promise<UserResult | null> {
-        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/pin/${id}`)
+        const resp = await ax.get<UserResult>(`${this.urlPrefix}/userResult/${id}/pin`)
         return resp.data
     }
 }
