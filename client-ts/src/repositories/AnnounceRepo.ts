@@ -41,7 +41,7 @@ export class AnnouncementRepository implements IRepository<Announcement> {
   }
 
   async upsertUserResult(id: string|number, entity: Partial<UserResult>[]): Promise<UserResult[] | null> {
-      const resp = await ax.post<UserResult[]>(`${this.urlPrefix}/announcement/${id}/result`, entity)
+      const resp = await ax.post<UserResult[]>(`${this.urlPrefix}/announcement/${id}/results`, entity)
       return resp.data
   }
 }

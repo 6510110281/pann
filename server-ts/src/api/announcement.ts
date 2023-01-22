@@ -56,7 +56,7 @@ router
     })
     .get('/:id/results', prepareAnnouncementById, async (ctx, next) => {
         const announcement = ctx.state.announcement
-        ctx.body = await db('userResult').select('*').where({'announcementId': announcement})
+        ctx.body = await db('userResult').select('*').where({'announcementId': announcement.id}).orderBy('userCode', 'asc')
     })
     .post('/:id/results', prepareAnnouncementById, async  (ctx, next) => {
         const announcement = ctx.state.announcement
