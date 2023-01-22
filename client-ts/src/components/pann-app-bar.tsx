@@ -18,6 +18,10 @@ function PannAppBar() {
     setAnchorEl(null);
   };
 
+  const Notstaff = () => {
+    return !action.isStaff() 
+  }
+
   return (
     <AppBar position="static">
       <Drawer
@@ -39,7 +43,7 @@ function PannAppBar() {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton onClick={() => navigate('/announcement')}>
+            <ListItemButton disabled={Notstaff()} onClick={() => navigate('/announcement')}>
               <ListItemIcon>
                 <Campaign />
               </ListItemIcon>
