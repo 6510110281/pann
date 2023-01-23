@@ -3,6 +3,7 @@ import { Menu as MenuIcon, AccountCircle, ChevronLeft, Home, Campaign } from "@m
 import { useState } from "react";
 import { useAppCtx } from "../AppProvider";
 import { useNavigate } from "react-router-dom";
+import '../App.css'
 
 function PannAppBar() {
   const { userInfo, action } = useAppCtx()
@@ -23,6 +24,7 @@ function PannAppBar() {
       navigate('/announcement')
     }else{
       console.log('Not Permission')
+      navigate('/home')
     }
   }
 
@@ -68,7 +70,9 @@ function PannAppBar() {
           <MenuIcon />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          PSU Announcement
+          <Box>
+            <img src="PSU-Logo.png" alt="(PSU-Logo)" width={"60.15"} height={"32.25"}/> Announcement
+          </Box> 
         </Typography>
         <Typography>
           {userInfo.displayName}
