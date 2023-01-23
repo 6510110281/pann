@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { Button } from '@mui/material';
+import { Button, Paper } from '@mui/material';
 import { Box } from '@mui/system';
 import { Login as LoginIcon } from '@mui/icons-material';
 import { useAuth } from "react-oidc-context";
@@ -56,12 +56,21 @@ function Login() {
   }
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 500 }}>
-      <Button variant='contained' sx={{ fontSize: 'large' }} onClick={() => void auth.signinRedirect()}>
-        <LoginIcon sx={{ mr: 1 }} />
-        Log in
-      </Button>
-    </Box>
+    <Paper sx={{ bgcolor:"#EDFCFF"}}>
+      <center>
+        <Box sx={{ display: 'flex', minHeight: 175}}></Box>
+        <Box sx={{ display: 'flex', justifyContent: 'center', minHeight: 300}}>
+          <img src="/psulogo.png" width="980" height="390"/>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+          <Button variant='contained' sx={{fontSize: 'large'}} onClick={() => void auth.signinRedirect()}>
+            <LoginIcon sx={{ mr: 1}}/>
+            Log in
+          </Button>
+        </Box>
+        <Box sx={{ display: 'flex', minHeight: 320}}></Box>
+      </center>
+    </Paper>
   );
 };
 
