@@ -20,9 +20,24 @@ const ProtectedRoute = ({staffOnly, children}: Props) => {
     return <Navigate to="/login" replace state={{backTo: location.pathname}}/>
   }
 
+  const reFresh = () => {
+    console.log('backTo = ', location.pathname)
+    return <Navigate to="/home" replace state={{backTo: location.pathname}}/>
+  }
+
   useEffect(() => {
+    const json = sessionStorage.getItem('userInfo') as string
+    const data = JSON.parse(json)
     if (!userInfo.ready || (staffOnly && !action.isStaff())) {
-      redirectToLogin()
+      if(data.ready){
+        if(staffOnly && !data.staff){
+          redirectToLogin()
+        }else{
+          reFresh()
+        }
+      }else{
+        redirectToLogin()
+      }          
     }
   }, [userInfo.ready, staffOnly])
 

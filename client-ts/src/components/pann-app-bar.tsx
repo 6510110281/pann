@@ -1,4 +1,4 @@
-import { AppBar, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Toolbar, Typography } from "@mui/material";
+import { AppBar, Box, Divider, Drawer, IconButton, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem, Paper, Toolbar, Typography } from "@mui/material";
 import { Menu as MenuIcon, AccountCircle, ChevronLeft, Home, Campaign } from "@mui/icons-material";
 import { useState } from "react";
 import { useAppCtx } from "../AppProvider";
@@ -18,8 +18,12 @@ function PannAppBar() {
     setAnchorEl(null);
   };
 
-  const Notstaff = () => {
-    return !action.isStaff() 
+  const announce = () => {
+    if(action.isStaff()){
+      navigate('/announcement')
+    }else{
+      console.log('Not Permission')
+    }
   }
 
   return (
@@ -43,11 +47,11 @@ function PannAppBar() {
             </ListItemButton>
           </ListItem>
           <ListItem>
-            <ListItemButton disabled={Notstaff()} onClick={() => navigate('/announcement')}>
+            <ListItemButton onClick={() => announce()}>
               <ListItemIcon>
                 <Campaign />
               </ListItemIcon>
-              <ListItemText primary="Announcement" />
+              <ListItemText primary="Announcement(Staff Only)" />
             </ListItemButton>
           </ListItem>
         </List>
