@@ -10,6 +10,7 @@ export const oidcConfig: AuthProviderProps = {
   scope: 'openid profile offline_access',
   redirect_uri: 'http://localhost:3000',    
   monitorSession: true,
+  post_logout_redirect_uri: 'http://localhost:3000'
 };
 
 export const ax = axios.create({
