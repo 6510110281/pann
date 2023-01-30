@@ -3,7 +3,6 @@ import { Menu as MenuIcon, AccountCircle, ChevronLeft, Home, Campaign } from "@m
 import { useState } from "react";
 import { useAppCtx } from "../AppProvider";
 import { useNavigate } from "react-router-dom";
-import '../App.css'
 
 function PannAppBar() {
   const { userInfo, action } = useAppCtx()
@@ -18,15 +17,6 @@ function PannAppBar() {
   const handleCloseMenu = () => {
     setAnchorEl(null);
   };
-
-  const announce = () => {
-    if(action.isStaff()){
-      navigate('/announcement')
-    }else{
-      console.log('Not Permission')
-      navigate('/home')
-    }
-  }
 
   return (
     <AppBar position="static">
@@ -48,14 +38,15 @@ function PannAppBar() {
               <ListItemText primary="Home" />
             </ListItemButton>
           </ListItem>
+          { userInfo.staff &&
           <ListItem>
-            <ListItemButton onClick={() => announce()}>
+            <ListItemButton onClick={() => navigate('/announcement')}>
               <ListItemIcon>
                 <Campaign />
               </ListItemIcon>
-              <ListItemText primary="Announcement(Staff Only)" />
+              <ListItemText primary="Announcement" />
             </ListItemButton>
-          </ListItem>
+          </ListItem>}
         </List>
       </Drawer>
       <Toolbar>
