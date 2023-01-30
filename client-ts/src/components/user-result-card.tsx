@@ -13,6 +13,7 @@ interface Prop {
 function UserResultCard(props: Prop) {
   const userResult = props.userResult;
   const [popup, setPopup] = useState(false);
+  const [pin,setPin] = useState(true)
 
   const onOpenPopup = async () => {
     if(!userResult.viewDateTime){
@@ -34,8 +35,13 @@ function UserResultCard(props: Prop) {
   };
 
   const handleToggleIsPinned = async () => {
-    const result = await Repo.userResult.toggleIsPinned(userResult.id)
-    if(result) {
+    const result = await Repo.userResult.toggleIsPinned(userResult.id, pin)
+    if(pin == false){
+      setPin(true)
+    }else{
+      setPin(false)
+    }
+    if(result){
       props.onUpdateUserResult(result)
     }
   };
