@@ -49,7 +49,7 @@ function AnnouncementList() {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <PannAppBar></PannAppBar>
-      <TextField sx={{ m: 2, minWidth: 120 }} label="Search" placeholder="Topic, Description" variant="outlined" value={searchFilter} onChange={handleChangeSearchFilter} />
+      <TextField className='BackgroundFilter' sx={{ m: 2, minWidth: 120 }} label="Search" placeholder="Topic, Description" variant="outlined" value={searchFilter} onChange={handleChangeSearchFilter} />
       <Button sx={{ m: 2, float: 'right' }} variant="contained" onClick={() => setCreateFormPopup(true)}>
         <Add /> Announcement
       </Button>
@@ -64,7 +64,11 @@ function AnnouncementList() {
         </Grid>
         :
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 400 }}>
-          <Typography variant="body2" color="text.secondary">No Announcement Found</Typography>
+          <Typography variant="body2" color="white">
+            <Box className='Textbox' padding={2.5}>
+              No Announcement Found
+            </Box>
+          </Typography>
         </Box>
       }
 

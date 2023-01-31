@@ -47,6 +47,7 @@ function UserResultList() {
         <Box sx={{ flexGrow: 1 }}>
             <PannAppbar></PannAppbar>
             <Select
+            className='BackgroundFilter'
             sx={{ m: 2, minWidth: 120 }}
             value={selectFilter}
             onChange={handleChangeSelectFilter}
@@ -57,7 +58,7 @@ function UserResultList() {
                 </MenuItem>
                 <MenuItem value={1}>Pinned</MenuItem>
             </Select>
-            <TextField sx={{ m:2, minWidth: 120 }} label="Search" variant='outlined' value={searchFilter} onChange={handleChangeSearchFilter} />
+            <TextField className='BackgroundFilter' sx={{ m:2, minWidth: 120 }} label="Search" variant='outlined' value={searchFilter} onChange={handleChangeSearchFilter} />
             {userResultList.length
               ?
               <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 8, md: 12, lg: 12, xl: 10}}>
@@ -69,7 +70,11 @@ function UserResultList() {
               </Grid>
               :
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 400}}>
-                <Typography variant='body2' color='text.secondary'>No Result Found</Typography>
+                <Typography variant='body2' color='white'>
+                    <Box className='Textbox' padding={2}>
+                        No Result Found
+                    </Box>
+                </Typography>
               </Box>
             }
         </Box>

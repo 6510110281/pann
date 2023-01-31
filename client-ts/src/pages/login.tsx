@@ -5,6 +5,7 @@ import { Login as LoginIcon } from '@mui/icons-material';
 import { useAuth } from "react-oidc-context";
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAppCtx } from '../AppProvider';
+import '../App.css'
 
 function Login() {
   const { userInfo, action } = useAppCtx();
@@ -56,7 +57,7 @@ function Login() {
   }
 
   return (
-    <Paper sx={{ bgcolor:"#EDFCFF"}}>
+    <Paper className='LoginBackground'>
       <center>
         <Box sx={{ display: 'flex', minHeight: 175}}></Box>
         <Box sx={{ display: 'flex', justifyContent: 'center', minHeight: 300}}>
